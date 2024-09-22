@@ -1,0 +1,32 @@
+### POST - should give exception as no red ones in stock
+POST localhost:8081/api/order
+content-type: application/json
+
+{
+  "orderLineItemsDtoList": [
+    {
+      "skuCode": "iphone_13",
+      "price": 1200,
+      "quantity": 1
+    },
+    {
+      "skuCode": "iphone_13_red",
+      "price": 1200,
+      "quantity": 1
+    }
+  ]
+}
+
+### should be successful
+POST localhost:8081/api/order
+content-type: application/json
+
+{
+  "orderLineItemsDtoList": [
+    {
+      "skuCode": "iphone_13",
+      "price": 1200,
+      "quantity": 1
+    }
+  ]
+}
