@@ -1,0 +1,15 @@
+### post request
+POST http://localhost:8081/api/order
+content-type: application/json
+
+{
+  "orderLineItemsDtoList": [
+    {
+      "skuCode": "iphone_15",
+      "price": 1200,
+      "quantity": 1
+    }
+  ]
+}
+
+###
