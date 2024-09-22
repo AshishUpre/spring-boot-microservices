@@ -7,7 +7,6 @@ import com.ashupre.orderservice.model.Order;
 import com.ashupre.orderservice.model.OrderLineItems;
 import com.ashupre.orderservice.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
-import org.apache.logging.log4j.util.Strings;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -23,7 +22,7 @@ public class OrderService {
 
     private final OrderRepository orderRepository;
 
-    private final WebClient webClient;
+    private final WebClient.Builder webClientBuilder;
 
     public void placeOrder(OrderRequest orderRequest) {
         Order order = new Order();
@@ -41,9 +40,12 @@ public class OrderService {
                 .toList();
 
         // call inventory service and place order if order is in stock
-        InventoryResponse[] inventoryResponseArray = webClient.get()
+        InventoryResponse[] inventoryResponseArray = webClientBuilder.build().get()
                 // build uri with skuCodes as query param
-                .uri("http://localhost:8082/api/inventory",
+                // .uri("http://localhost:8082/api/inventory",
+                //        uriBuilder -> uriBuilder.queryParam("skuCode", skuCodes).build())
+                // after adding discovery server, can this instead of localhost
+                .uri("http://inventory-service/api/inventory",
                         uriBuilder -> uriBuilder.queryParam("skuCode", skuCodes).build())
                 .retrieve()
                 .bodyToMono(InventoryResponse[].class) // need to add this to able to read response, inside provide type of response
