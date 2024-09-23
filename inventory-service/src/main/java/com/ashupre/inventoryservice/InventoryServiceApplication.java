@@ -15,7 +15,7 @@ public class InventoryServiceApplication {
 	}
 
 	/**
-	 * At startup, generates this data and puts in DB
+	 * At startup, generates this data and puts in DB.
 	 */
 	@Bean
 	public CommandLineRunner loadData(InventoryRepository inventoryRepository) {
