@@ -4,7 +4,6 @@ GET localhost:8080/api/product
 ###
 GET localhost:36153/api/product
 
-
 ### order service
 POST http://localhost:8081/api/order
 content-type: application/json
